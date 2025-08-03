@@ -1,0 +1,16 @@
+stages:
+  - deploy
+
+publish_pages:
+  stage: deploy
+  image: python:3.9
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    # ICS生成スクリプトを動かし、public配下に出力
+    - python scripts/generate_ics.py --output public/denken_schedule.ics
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
